@@ -1,31 +1,35 @@
+// Cria uma instância do jogador e do obstáculo
 let player = new Player();
 let obstacle = new Obstacle();
-let score = 0;
+let score = 0; // Variável para armazenar a pontuação do jogador
 
+// Configura o botão B para fazer o jogador pular
 input.onButtonPressed(Button.B, function () {
-    player.jump();
-})
+    player.jump(); // Chama o método de pulo do jogador
+});
 
-input.onButtonPressed(Button.B, function () {
-    player.jump();
-})
-
+// Loop principal do jogo
 basic.forever(function () {
-
+    // Verifica se houve colisão entre o jogador e o obstáculo
     player.checkCollision(obstacle);
 
-    score ++;
+    // Incrementa a pontuação a cada iteração do loop
+    score++;
 
-    if (game.isGameOver) {
-        game.setScore(score)
+    // Verifica se o jogo acabou
+    if (game.isGameOver()) {
+        game.setScore(score); // Define a pontuação final do jogo
     }
 
-    basic.pause(200)
-        if (!(obstacle.isActiveObs())) {
-            // Mostra o obstáculo na posição inicial (4, 4)
-            obstacle.spawn();
-        } else {
-            // Move o obstáculo para a esquerda
-            obstacle.move();
-   }
-})
+    // Pausa de 200ms para controlar a velocidade do jogo
+    basic.pause(200);
+
+    // Verifica se o obstáculo está ativo
+    if (!obstacle.isActiveObs()) {
+        // Se o obstáculo não estiver ativo, ativa-o na posição inicial
+        obstacle.spawn();
+    } else {
+        // Se o obstáculo estiver ativo, move-o para a esquerda
+        obstacle.move();
+    }
+});
