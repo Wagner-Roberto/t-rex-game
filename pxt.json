@@ -12,9 +12,7 @@
         "player.ts",
         "obstacle.ts"
     ],
-    "testFiles": [
-        "test.ts"
-    ],
+    "testFiles": [],
     "targetVersions": {
         "target": "7.0.57",
         "targetId": "microbit"

@@ -1,40 +1,48 @@
 class Obstacle {
-    private sprite: game.LedSprite; // Sprite do obstáculo
-    private isActive: boolean; // Indica se o obstáculo está ativo na tela
+    private sprite: game.LedSprite; // Sprite que representa o obstáculo no LED
+    private isActive: boolean = false; // Indica se o obstáculo está ativo na tela
 
     constructor() {
-        // Cria o sprite do obstáculo, inicialmente invisível
-        this.sprite = game.createSprite(4, 4); // Posição inicial (4, 4)
-        this.sprite.setBrightness(0); // Inicialmente invisível
-        this.isActive = false; // Obstáculo começa inativo
+        // Cria o sprite do obstáculo na posição inicial (4, 4)
+        this.sprite = game.createSprite(4, 4);
+        // Define o brilho do sprite como 0 (invisível) no início
+        this.sprite.setBrightness(0);
     }
 
-    // Método para ativar o obstáculo na posição inicial (4, 4)
+    // Método para ativar o obstáculo na tela
     public spawn(): void {
-        if (!this.isActive) { // Só ativa se o obstáculo não estiver ativo
-            this.sprite.setX(4); // Posição X inicial
-            this.sprite.setY(4); // Posição Y fixa
-            this.sprite.setBrightness(100); // Torna o obstáculo visível
-            this.isActive = true; // Marca o obstáculo como ativo
+        // Verifica se o obstáculo já está ativo
+        if (!this.isActive) {
+            // Posiciona o obstáculo na posição X inicial (4)
+            this.sprite.setX(4);
+            // Torna o obstáculo visível definindo o brilho para 100
+            this.sprite.setBrightness(100);
+            // Marca o obstáculo como ativo
+            this.isActive = true;
         }
     }
 
     // Método para mover o obstáculo para a esquerda
     public move(): void {
-        if (this.isActive) { // Só move se o obstáculo estiver ativo
-            const currentX = this.sprite.x(); // Pega a posição X atual
-            if (currentX > 0) { // Se não chegou ao fim (0, 4)
-                this.sprite.move(-1); // Move para a esquerda
-            } else { // Se chegou ao fim (0, 4)
-                this.despawn(); // Remove o obstáculo
+        // Verifica se o obstáculo está ativo antes de mover
+        if (this.isActive) {
+            // Se o obstáculo ainda não chegou ao fim da tela (X > 0)
+            if (this.sprite.x() > 0) {
+                // Move o obstáculo uma posição para a esquerda
+                this.sprite.move(-1);
+            } else {
+                // Se o obstáculo chegou ao fim da tela, remove-o
+                this.despawn();
             }
         }
     }
 
     // Método para remover o obstáculo da tela
     public despawn(): void {
-        this.sprite.setBrightness(0); // Torna o obstáculo invisível
-        this.isActive = false; // Marca o obstáculo como inativo
+        // Torna o obstáculo invisível definindo o brilho como 0
+        this.sprite.setBrightness(0);
+        // Marca o obstáculo como inativo
+        this.isActive = false;
     }
 
     // Método para verificar se o obstáculo está ativo
@@ -42,6 +50,7 @@ class Obstacle {
         return this.isActive;
     }
 
+    // Método para obter a posição X atual do sprite do obstáculo
     public getSpriteX(): number {
         return this.sprite.x();
     }
